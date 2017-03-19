@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ReactDom from 'react-dom';
-import Board from './Board';
+import CardList from './CardList';
 import AddBoard from './AddBoard';
 import Dragula from 'react-dragula';
 
@@ -12,14 +12,14 @@ class Boards extends Component {
     super(props);
     this.dragulaCards = Dragula();
     this.dragulaBoards = Dragula({
-      moves: (el, container, handle) => handle.classList.contains('Board-name')
+      moves: (el, container, handle) => handle.classList.contains('CardList-name')
     });
   }
   render() {
     return (
       <div className='Boards'>
         {
-					this.props.boards.map( (board) => <Board key={board.id} board={board} actions={this.props.actions} dragulaCards={this.dragulaCards} /> )
+					this.props.boards.map( (board) => <CardList key={board.id} cardList={board} actions={this.props.actions} dragulaCards={this.dragulaCards} /> )
 				}
         <AddBoard addBoard={this.props.actions.addBoard} />
       </div>
