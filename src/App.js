@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
+import Boards from './Boards';
 import './App.css';
 
 class App extends Component {
   render() {
     return (
-      <div>Hello World!</div>
+      <Boards boards={this.props.state.boards} actions={this.props.actions} />
     );
   }
 }
