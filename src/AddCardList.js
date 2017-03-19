@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-import './AddBoard.css';
 
-class AddBoard extends Component {
+class AddCardList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      boardName: ""
+      cardListName: ""
     }
 
     this.handleChange = this.handleChange.bind(this);
@@ -14,22 +13,22 @@ class AddBoard extends Component {
 
   handleSubmit(event){
     event.preventDefault();
-    this.props.addBoard(this.state.boardName, () => this.setState({boardName: ""}));
+    this.props.addCardList(this.state.cardListName, () => this.setState({cardListName: ""}));
   }
 
   handleChange(event){
     this.setState({
-      boardName: event.target.value
+      cardListName: event.target.value
     });
   }
 
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
-        <input value={this.state.boardName} onChange={this.handleChange} placeholder="Add board" />
+        <input value={this.state.cardListName} onChange={this.handleChange} placeholder="Add a list" />
       </form>
     );
   }
 }
 
-export default AddBoard;
+export default AddCardList;

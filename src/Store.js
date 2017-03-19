@@ -5,36 +5,11 @@ class Store extends Component {
     super(props);
 
     this.state = {
-			boards: [
-				{
-					id: 1,
-					name: "Assigned",
-					cards: [
-						{
-							id: 1,
-							content: "card 1"
-						},
-						{
-							id: 2,
-							content: "card 2"
-						}
-					]
-				},
-				{
-					id: 2,
-					name: "In progress",
-					cards: []
-				},
-				{
-					id: 3,
-					name: "Done",
-					cards: []
-				}
-			]
+			cardLists: []
     };
 
     this.actions = {
-      addBoard: this.addBoard.bind(this),
+      addCardList: this.addCardList.bind(this),
 			addCard: this.addCard.bind(this)
     };
   }
@@ -43,28 +18,28 @@ class Store extends Component {
 		return Math.random();
 	}
 
-	addCard(boardId, cardContent, callback){
+	addCard(cardListId, cardContent, callback){
 		var newId = this.getNewId();
 		this.setState({
-			boards: this.state.boards.map( (board) => {
-				if(board.id === boardId){
-					return Object.assign({}, board, {
-						cards: board.cards.concat({id: newId, content: cardContent})
+			cardLists: this.state.cardLists.map( (cardList) => {
+				if(cardList.id === cardListId){
+					return Object.assign({}, cardList, {
+						cards: cardList.cards.concat({id: newId, content: cardContent})
 					})
 				}
-				return board;
+				return cardList;
 			})
 		}, callback);
 	}
 
-	addBoard(name, callback){
-		var newBoard = {
+	addCardList(name, callback){
+		var newCardList = {
 			id: this.getNewId(),
 			name: name,
 			cards: []
 		};
 		this.setState({
-			boards: this.state.boards.concat(newBoard)
+			cardList: this.state.cardList.concat(newCardList)
 		}, callback);
 	}
  

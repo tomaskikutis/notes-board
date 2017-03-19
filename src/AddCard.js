@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import './AddCard.css';
 
 class AddCard extends Component {
   constructor(props) {
@@ -26,7 +25,7 @@ class AddCard extends Component {
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
-        <input value={this.state.cardContent} onChange={this.handleChange} placeholder="Add card" />
+        <input value={this.state.cardContent} onChange={this.handleChange} placeholder="Add a card" />
       </form>
     );
   }
