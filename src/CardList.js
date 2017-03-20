@@ -12,7 +12,7 @@ class CardList extends Component {
     return (
       <div className='CardList'>
         <h2 className='CardList-name'>{this.props.cardList.name}</h2>
-				<Cards cards={this.props.cardList.cards} dragulaCards={this.props.dragulaCards} />
+				<Cards cards={this.props.cardList.cards} actions={this.props.actions} dragulaCards={this.props.dragulaCards} />
 				<AddCard addCard={this.addCard} />
       </div>
     );
