@@ -40,7 +40,7 @@ class Card extends Component {
   }
   render() {
     return (
-      <div className='Card'>
+      <div className='Card' data-card-id={this.props.card.id}>
         {
           this.state.editMode === true ? (
             <form style={{display: "flex", flexDirection: "column"}} onSubmit={this.handleSubmit}>

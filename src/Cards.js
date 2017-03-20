@@ -9,7 +9,9 @@ class Cards extends Component {
     return (
       <div className='Cards'>
         {
-					this.props.cards.map( (card) => <Card actions={this.props.actions} key={card.id} card={card} /> )
+					this.props.cards
+            .sort((a,b) => a.order - b.order )
+            .map( (card) => <Card actions={this.props.actions} key={card.id} card={card} /> )
 				}
       </div>
     );

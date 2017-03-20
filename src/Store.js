@@ -21,17 +21,39 @@ class Store extends Component {
       addCardList: this.addCardList.bind(this),
 			addCard: this.addCard.bind(this),
 			changeCardContent: this.changeCardContent.bind(this),
-			removeCard: this.removeCard.bind(this)
+			removeCard: this.removeCard.bind(this),
+			updateCardsOrder: this.updateCardsOrder.bind(this)
     };
   }
 
 	persistState(callback){
 		localStorage.setItem(localStorageNamespace, JSON.stringify(this.state));
-		callback();
+		if(typeof callback === 'function'){
+			callback();
+		}
 	}
 
 	getNewId(){
 		return Math.random();
+	}
+
+	updateCardsOrder(updateObj){
+		var allCardsById = this.state.cardLists
+		.reduce( (acc, val) => acc.concat(val.cards), [])
+		.reduce( (acc, val) => { acc[val.id] = val; return acc; } , {} );
+
+		this.setState({
+			cardLists: this.state.cardLists.map( (cardList) => {
+				if(updateObj[cardList.id] !== undefined){
+					return Object.assign({}, cardList, {
+						cards: Object.keys(updateObj[cardList.id]).map( (key => {
+							return Object.assign({}, allCardsById[key], {order: updateObj[cardList.id][key]});
+						}))
+					});
+				}
+				return cardList;
+			})
+		});
 	}
 
 	addCard(cardListId, cardContent, callback){
@@ -39,8 +61,10 @@ class Store extends Component {
 		this.setState({
 			cardLists: this.state.cardLists.map( (cardList) => {
 				if(cardList.id === cardListId){
+					var nextCardsOrder = cardList.lastCardsOrder + 1;
 					return Object.assign({}, cardList, {
-						cards: cardList.cards.concat({id: newId, listId: cardListId,content: cardContent})
+						cards: cardList.cards.concat({id: newId, listId: cardListId,content: cardContent, order: nextCardsOrder}),
+						lastCardsOrder: nextCardsOrder
 					})
 				}
 				return cardList;
@@ -85,7 +109,8 @@ class Store extends Component {
 		var newCardList = {
 			id: this.getNewId(),
 			name: name,
-			cards: []
+			cards: [],
+			lastCardsOrder: 0
 		};
 		this.setState({
 			cardLists: this.state.cardLists.concat(newCardList)
