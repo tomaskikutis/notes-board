@@ -43,12 +43,12 @@ class Card extends Component {
       <div className='Card' data-card-id={this.props.card.id}>
         {
           this.state.editMode === true ? (
-            <form style={{display: "flex", flexDirection: "column"}} onSubmit={this.handleSubmit}>
-              <input type="text" value={this.state.cardContent} onChange={this.handleChange} />
+            <form style={{display: 'flex', flexDirection: 'column'}} onSubmit={this.handleSubmit}>
+              <input type='text' value={this.state.cardContent} onChange={this.handleChange} />
               <div>
-                <button type="button" onClick={this.updateCard}>Save</button>
-                <button type="button" onClick={this.disableEditMode}>Cancel</button>
-                <button type="button" onClick={this.removeCard}>Remove card</button>
+                <button type='button' onClick={this.updateCard}>Save</button>
+                <button type='button' onClick={this.disableEditMode}>Cancel</button>
+                <button type='button' onClick={this.removeCard}>Remove card</button>
               </div>
             </form>
           ) : (

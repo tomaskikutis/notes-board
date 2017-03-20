@@ -50,8 +50,8 @@ class Board extends Component {
   }
   render() {
     return (
-      <div style={{display: "flex"}}>
-        <div className='Board' ref="board">
+      <div style={{display: 'flex'}}>
+        <div className='Board' ref='board'>
           {
             this.props.cardLists.map( (cardList) => (
                 <CardList

@@ -4,7 +4,7 @@ class AddCard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      cardContent: ""
+      cardContent: ''
     }
 
     this.handleChange = this.handleChange.bind(this);
@@ -13,7 +13,7 @@ class AddCard extends Component {
 
   handleSubmit(event){
     event.preventDefault();
-    this.props.addCard(this.state.cardContent, () => this.setState({cardContent: ""}));
+    this.props.addCard(this.state.cardContent, () => this.setState({cardContent: ''}));
   }
 
   handleChange(event){
@@ -25,7 +25,7 @@ class AddCard extends Component {
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
-        <input value={this.state.cardContent} onChange={this.handleChange} placeholder="Add a card" />
+        <input value={this.state.cardContent} onChange={this.handleChange} placeholder='Add a card' />
       </form>
     );
   }
