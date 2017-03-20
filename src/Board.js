@@ -12,11 +12,18 @@ class Board extends Component {
   constructor(props) {
     super(props);
     var updateCardsOrder = this.updateCardsOrder.bind(this);
+    var updateCardListsOrder = this.updateCardListsOrder.bind(this);
     this.dragulaCards = Dragula();
+    this.dragulaCards.on('drop', updateCardsOrder);
     this.dragulaCardList = Dragula({
       moves: (el, container, handle) => handle.classList.contains('CardList-name')
     });
-    this.dragulaCards.on('drop', updateCardsOrder);
+    this.dragulaCardList.on('drop', updateCardListsOrder);
+  }
+  updateCardListsOrder(el, target, source, sibling){
+    var nextOrder = Array.from(target.children).map((el) => el.getAttribute('data-list-id'));
+    this.dragulaCards.cancel(true);
+    this.props.actions.updateCardListsOrder(nextOrder);
   }
   getSingleCardUpdateObject(cardElement){
     var listId = cardElement.parentElement.getAttribute('data-list-id');
@@ -41,25 +48,27 @@ class Board extends Component {
   }
   render() {
     return (
-      <div className='Board'>
-        {
-					this.props.cardLists.map( (cardList) => (
-              <CardList
-                key={cardList.id}
-                cardList={cardList}
-                actions={this.props.actions}
-                dragulaCards={this.dragulaCards}
-              />
+      <div style={{display: "flex"}}>
+        <div className='Board' ref="board">
+          {
+            this.props.cardLists.map( (cardList) => (
+                <CardList
+                  key={cardList.id}
+                  cardList={cardList}
+                  actions={this.props.actions}
+                  dragulaCards={this.dragulaCards}
+                />
+              )
             )
-          )
-				}
+          }
+        </div>
         <AddCardList addCardList={this.props.actions.addCardList} />
       </div>
     );
   }
 
   componentDidMount() {
-    var container = ReactDom.findDOMNode(this);
+    var container = ReactDom.findDOMNode(this.refs.board);
     this.dragulaCardList.containers.push(container);
   }
 }

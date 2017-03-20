@@ -22,7 +22,8 @@ class Store extends Component {
 			addCard: this.addCard.bind(this),
 			changeCardContent: this.changeCardContent.bind(this),
 			removeCard: this.removeCard.bind(this),
-			updateCardsOrder: this.updateCardsOrder.bind(this)
+			updateCardsOrder: this.updateCardsOrder.bind(this),
+			updateCardListsOrder: this.updateCardListsOrder.bind(this)
     };
   }
 
@@ -53,6 +54,17 @@ class Store extends Component {
 				}
 				return cardList;
 			})
+		});
+	}
+
+	updateCardListsOrder(nextOrder){
+		var allCardListsById = this.state.cardLists.reduce( (acc, val) => {
+			acc[val.id] = val;
+			return acc;
+		}, {});
+		
+		this.setState({
+			cardLists: nextOrder.map( (listId) => allCardListsById[listId] )
 		});
 	}
 
