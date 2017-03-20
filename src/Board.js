@@ -13,7 +13,9 @@ class Board extends Component {
     super(props);
     var updateCardsOrder = this.updateCardsOrder.bind(this);
     var updateCardListsOrder = this.updateCardListsOrder.bind(this);
-    this.dragulaCards = Dragula();
+    this.dragulaCards = Dragula({
+      moves: (el, container, handle) => handle.classList.contains('Card-handle')
+    });
     this.dragulaCards.on('drop', updateCardsOrder);
     this.dragulaCardList = Dragula({
       moves: (el, container, handle) => handle.classList.contains('CardList-name')

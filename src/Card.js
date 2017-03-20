@@ -51,7 +51,12 @@ class Card extends Component {
                 <button type="button" onClick={this.removeCard}>Remove card</button>
               </div>
             </form>
-          ) : <div onClick={this.enableEditMode}>{this.props.card.content}</div>
+          ) : (
+            <div style={{display: 'flex', justifyContent: 'space-between'}} className='Card-handle'>
+              {this.props.card.content}
+              <button aria-label='edit' onClick={this.enableEditMode}>️️✏</button>
+            </div>
+          )
         }
       </div>
     );
